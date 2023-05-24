@@ -1,11 +1,15 @@
 SELECT LastName, FirstName, Orders.OrderID, SUM(Quantity * Price) as SalesAmt
 FROM employees
+    -- Joining the employees table with the orders table based on employee ID
     INNER JOIN orders
         ON employees.employeeID = orders.employeeid 
+    -- Joining the orders table with the orderDetails table based on order ID
     INNER JOIN orderDetails
         ON orders.orderid = orderdetails.orderid
+    -- Joining the orderDetails table with the products table based on product ID
     INNER JOIN products
         ON orderdetails.productid = products.productid
 GROUP BY orders.orderid
+-- Filtering the result to only include specific order IDs
 HAVING orders.orderid IN (10372, 10424, 10417, 10324, 10351)
 ORDER BY SalesAmt DESC
