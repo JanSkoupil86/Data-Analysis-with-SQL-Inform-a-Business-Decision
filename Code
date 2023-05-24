@@ -1,0 +1,11 @@
+SELECT LastName, FirstName, Orders.OrderID, SUM(Quantity * Price) as SalesAmt
+FROM employees
+    INNER JOIN orders
+        ON employees.employeeID = orders.employeeid 
+    INNER JOIN orderDetails
+        ON orders.orderid = orderdetails.orderid
+    INNER JOIN products
+        ON orderdetails.productid = products.productid
+GROUP BY orders.orderid
+HAVING orders.orderid IN (10372, 10424, 10417, 10324, 10351)
+ORDER BY SalesAmt DESC
